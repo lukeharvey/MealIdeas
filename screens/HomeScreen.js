@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, StyleSheet, View } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import sampleData from '../sample-data';
+import * as actionCreators from '../actions/actionCreators';
+import { mealsFilteredByKeyword } from '../selectors/index';
+
 import MealList from '../components/MealList';
 
 const styles = StyleSheet.create({
@@ -15,24 +19,19 @@ const styles = StyleSheet.create({
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      meals: sampleData,
-      keyword: ''
-    };
   }
 
   render() {
-    const { meals } = this.state;
+    const { meals } = this.props;
     const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
-        <MealList meals={meals} navigate={navigate} />
         <Button
           onPress={() => false}
           title="Add Meal"
         />
+        <MealList meals={meals} navigate={navigate} />
       </View>
     );
   }
@@ -43,8 +42,26 @@ HomeScreen.navigationOptions = {
 };
 
 HomeScreen.propTypes = {
+  meals: PropTypes.shape({
+    byId: PropTypes.object,
+    allIds: PropTypes.array
+  }),
   // eslint-disable-next-line react/forbid-prop-types
   navigation: PropTypes.object.isRequired
 };
 
-export default HomeScreen;
+HomeScreen.defaultProps = {
+  meals: {
+    byId: {},
+    allIds: []
+  }
+};
+
+const mapStateToProps = state => ({
+  meals: mealsFilteredByKeyword(state),
+  keyword: state.keyword
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

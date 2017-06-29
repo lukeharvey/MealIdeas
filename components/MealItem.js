@@ -5,19 +5,19 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const styles = StyleSheet.create({
   copy: {
-    fontSize: 16,
-    paddingTop: 8
+    color: 'dodgerblue',
+    fontSize: 14,
+    paddingTop: 2
   },
   item: {
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: '#CED0CE',
     borderStyle: 'solid',
-    padding: 16
+    padding: 12
   },
   name: {
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 16
   }
 });
 
@@ -26,7 +26,7 @@ const MealItem = (props) => {
   const formattedDate = lastEaten ? moment(lastEaten).startOf('day').fromNow() : 'Never';
 
   function onPress() {
-    return navigate('Meal', { id });
+    return navigate('Meal', { id, name });
   }
 
   return (

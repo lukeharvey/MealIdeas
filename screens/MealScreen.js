@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import sampleData from '../sample-data';
+import * as actionCreators from '../actions/actionCreators';
+
 import Meal from '../components/Meal';
 
 const styles = StyleSheet.create({
@@ -15,15 +18,10 @@ const styles = StyleSheet.create({
 class MealScreen extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      meals: sampleData,
-      keyword: ''
-    };
   }
 
   render() {
-    const { meals } = this.state;
+    const { meals } = this.props;
     const { params } = this.props.navigation.state;
     const { id } = params;
     const meal = meals.byId[id];
@@ -36,13 +34,30 @@ class MealScreen extends React.Component {
   }
 }
 
-MealScreen.navigationOptions = {
-  title: 'Meal Screen'
-};
+MealScreen.navigationOptions = ({ navigation }) => ({
+  title: `${navigation.state.params.name}`
+});
 
 MealScreen.propTypes = {
+  meals: PropTypes.shape({
+    byId: PropTypes.object,
+    allIds: PropTypes.array
+  }),
   // eslint-disable-next-line react/forbid-prop-types
   navigation: PropTypes.object.isRequired
 };
 
-export default MealScreen;
+MealScreen.defaultProps = {
+  meals: {
+    byId: {},
+    allIds: []
+  }
+};
+
+const mapStateToProps = state => ({
+  meals: state.meals
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MealScreen);

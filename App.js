@@ -1,11 +1,13 @@
-import { StackNavigator } from 'react-navigation';
+import React from 'react';
+import { Provider } from 'react-redux';
 
-import HomeScreen from './containers/HomeScreen';
-import MealScreen from './containers/MealScreen';
+import Root from './components/Root';
+import store from './store';
 
-const App = StackNavigator({
-  Home: { screen: HomeScreen },
-  Meal: { screen: MealScreen }
-});
+const App = () => (
+  <Provider store={store}>
+    <Root />
+  </Provider>
+);
 
 export default App;

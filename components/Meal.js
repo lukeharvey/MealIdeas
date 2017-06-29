@@ -7,15 +7,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1,
-    padding: 16
+    padding: 12
   },
   copy: {
-    fontSize: 16,
-    paddingTop: 8
+    fontSize: 14,
+    paddingTop: 4
   },
   name: {
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 16
   }
 });
 

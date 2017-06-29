@@ -4,6 +4,7 @@ import {
   DatePickerIOS,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   TouchableHighlight,
@@ -28,13 +29,16 @@ const styles = StyleSheet.create({
     borderColor: '#CED0CE',
     borderStyle: 'solid',
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingVertical: 12
   },
   input: {
-    height: 40
+    backgroundColor: '#eee',
+    height: 50,
+    paddingHorizontal: 12
   },
   label: {
-    fontSize: 16
+    fontSize: 16,
+    marginBottom: 8
   }
 });
 
@@ -78,6 +82,7 @@ class AddMealForm extends React.Component {
             placeholder="e.g. Spaghetti Bolognese"
             onChangeText={name => this.setState({ name })}
             style={styles.input}
+            value={this.state.name}
           />
         </View>
         <View style={styles.group}>
@@ -86,6 +91,7 @@ class AddMealForm extends React.Component {
             placeholder="e.g. River Cottage Veg Everyday"
             onChangeText={recipeSource => this.setState({ recipeSource })}
             style={styles.input}
+            value={this.state.recipeSource}
           />
         </View>
         <View style={styles.group}>
@@ -94,6 +100,14 @@ class AddMealForm extends React.Component {
             placeholder="e.g. bacon, pasta"
             onChangeText={tags => this.setState({ tags })}
             style={styles.input}
+            value={this.state.tags}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Vegetarian:</Text>
+          <Switch
+            onValueChange={value => this.setState({ vegetarian: value })}
+            value={this.state.vegetarian}
           />
         </View>
         <View style={styles.group}>
@@ -108,7 +122,7 @@ class AddMealForm extends React.Component {
         <TouchableHighlight
           onPress={this.handleSubmit}
         >
-          <Text style={styles.button}>Submit</Text>
+          <Text style={styles.button}>Add meal</Text>
         </TouchableHighlight>
       </ScrollView>
     );

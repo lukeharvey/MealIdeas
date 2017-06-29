@@ -31,11 +31,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12
   },
   input: {
-    paddingVertical: 12
+    backgroundColor: '#eee',
+    height: 50,
+    paddingHorizontal: 12
   },
   label: {
     fontSize: 16,
-    marginBottom: 6
+    marginBottom: 8
   }
 });
 
@@ -119,7 +121,7 @@ class EditMealForm extends React.Component {
         <TouchableHighlight
           onPress={this.handleSubmit}
         >
-          <Text style={styles.button}>Save</Text>
+          <Text style={styles.button}>Save meal</Text>
         </TouchableHighlight>
       </ScrollView>
     );

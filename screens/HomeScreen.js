@@ -38,7 +38,7 @@ const HomeScreen = (props) => {
         navigate={navigate}
       />
       <TouchableHighlight onPress={() => navigate('AddMeal')}>
-        <Text style={styles.button}>Add Meal</Text>
+        <Text style={styles.button}>Add meal</Text>
       </TouchableHighlight>
     </View>
   );

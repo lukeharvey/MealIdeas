@@ -2339,9 +2339,9 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-expo@^18.0.3:
-  version "18.0.4"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.4.tgz#9f7d70a5ec1ff7965ed402c4932c18d6c8565eb4"
+expo@^18.0.6:
+  version "18.0.6"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.6.tgz#1b7a1d8514c3e0ac1028973a57cced75c422bc4a"
   dependencies:
     "@expo/vector-icons" "^5.0.0"
     babel-preset-airbnb "^2.2.3"
@@ -2352,6 +2352,7 @@ expo@^18.0.3:
     lottie-react-native "1.1.1"
     md5-file "^3.1.1"
     pretty-format "^20.0.3"
+    prop-types "^15.5.10"
     react-native-branch "2.0.0-beta.3"
     react-native-fbads "https://github.com/callstack-io/react-native-fbads/tarball/v4.1.0"
     react-native-maps "https://github.com/expo/react-native-maps/archive/v0.15.2.tar.gz"
@@ -4666,8 +4667,8 @@ react-deep-force-update@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
 react-devtools-core@^2.1.8:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-2.3.3.tgz#3a950e6f20f2c8e67d0419e428c8500e7d8bf347"
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-2.4.0.tgz#8f261b2fcfb02ecef1f15e17d75ee1b521f02029"
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
@@ -4987,9 +4988,9 @@ redux-logger@^2.7.4:
   dependencies:
     deep-diff "0.3.4"
 
-redux-persist@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.1.tgz#5ea786437eb94870da7fd6ac2d8e3aed6be80e73"
+redux-persist@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.2.tgz#7941202e0ce0a9fcc0263d66965f5263d34f43b9"
   dependencies:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.4"

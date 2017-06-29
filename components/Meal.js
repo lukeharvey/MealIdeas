@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'mediumseagreen',
+    backgroundColor: 'dodgerblue',
     color: 'white',
     fontSize: 16,
     height: 50,

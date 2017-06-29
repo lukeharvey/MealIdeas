@@ -1,48 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../actions/actionCreators';
-
-import Meal from '../components/Meal';
+import EditMealForm from '../components/EditMealForm';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    flex: 1
   }
 });
 
-const MealScreen = (props) => {
-  const { eatMeal, meals, navigation } = props;
+const EditMealScreen = (props) => {
+  const { meals, navigation, updateMeal } = props;
+  const { goBack } = navigation;
   const { params } = navigation.state;
   const { id } = params;
   const meal = meals.byId[id];
 
   return (
-    <View style={styles.container}>
-      <Meal {...meal} eatMeal={eatMeal} />
-    </View>
+    <ScrollView style={styles.container}>
+      <EditMealForm {...meal} goBack={goBack} updateMeal={updateMeal} />
+    </ScrollView>
   );
 };
 
-MealScreen.navigationOptions = ({ navigation }) => ({
-  title: `${navigation.state.params.name}`
-});
+EditMealScreen.navigationOptions = {
+  title: 'Edit Meal'
+};
 
-MealScreen.propTypes = {
-  eatMeal: React.PropTypes.func.isRequired,
+EditMealScreen.propTypes = {
   meals: PropTypes.shape({
     byId: PropTypes.object,
     allIds: PropTypes.array
   }),
   // eslint-disable-next-line react/forbid-prop-types
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  updateMeal: PropTypes.func.isRequired
 };
 
-MealScreen.defaultProps = {
+EditMealScreen.defaultProps = {
   meals: {
     byId: {},
     allIds: []
@@ -55,4 +55,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EditMealScreen);

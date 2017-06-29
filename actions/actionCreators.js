@@ -34,11 +34,11 @@ export const deleteMeal = id => ({
 });
 
 // eat meal
-export const eatMeal = (id, moment) => ({
+export const eatMeal = (id, timestamp) => ({
   type: EAT_MEAL,
   payload: {
     id,
-    lastEaten: moment
+    timestamp
   }
 });
 

@@ -5,17 +5,18 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
 const styles = StyleSheet.create({
-  copy: {
+  lastEaten: {
     color: 'dodgerblue',
     fontSize: 14,
     paddingTop: 2
   },
   item: {
     backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderColor: '#CED0CE',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#ddd',
     borderStyle: 'solid',
-    padding: 12
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   name: {
     fontSize: 16
@@ -24,11 +25,20 @@ const styles = StyleSheet.create({
 
 const MealItem = (props) => {
   const { deleteMeal, id, lastEaten, name, navigate } = props;
-  const formattedDate = lastEaten ? moment(lastEaten).startOf('day').fromNow() : 'Never';
+  const formatDate = (date) => {
+    if (!date) {
+      return 'Never';
+    } else if (moment().diff(date, 'days') >= 1) {
+      return moment(date).fromNow();
+    }
+
+    return moment(date).calendar().split(' ')[0];
+  };
 
   const swipeoutBtns = [
     {
       backgroundColor: 'dodgerblue',
+      onPress: () => navigate('EditMeal', { id, name }),
       text: 'Edit'
     },
     {
@@ -46,7 +56,7 @@ const MealItem = (props) => {
       <TouchableHighlight onPress={() => navigate('Meal', { id, name })}>
         <View style={styles.item}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.copy}>Last eaten: {formattedDate}</Text>
+          <Text style={styles.lastEaten}>Last eaten: {formatDate(lastEaten)}</Text>
         </View>
       </TouchableHighlight>
     </Swipeout>

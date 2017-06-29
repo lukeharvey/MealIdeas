@@ -1,35 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: 'mediumseagreen',
+    color: 'white',
+    fontSize: 16,
+    height: 50,
+    lineHeight: 50,
+    marginTop: 32,
+    textAlign: 'center'
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
-    padding: 12
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   copy: {
     fontSize: 14,
-    paddingTop: 4
+    paddingTop: 16
+  },
+  header: {
+    paddingBottom: 12
+  },
+  lastEaten: {
+    color: 'dodgerblue',
+    fontSize: 14,
+    paddingTop: 8
   },
   name: {
-    fontSize: 16
+    fontSize: 24
   }
 });
 
 const Meal = (props) => {
-  const { lastEaten, name, recipeSource, tags } = props;
-  const formattedDate = lastEaten ? moment(lastEaten).fromNow() : 'Never';
+  const { eatMeal, id, lastEaten, name, recipeSource, tags } = props;
+  const timestamp = new Date().toISOString();
+  const formatDate = (date) => {
+    if (!date) {
+      return 'Never';
+    } else if (moment().diff(date, 'days') >= 1) {
+      return moment(date).fromNow();
+    }
+
+    return moment(date).calendar().split(' ')[0];
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
+      <View style={styles.header}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.lastEaten}>Last eaten: {formatDate(lastEaten)}</Text>
+      </View>
       <Text style={styles.copy}>Recipe source: {recipeSource}</Text>
-      <Text style={styles.copy}>Last eaten: {formattedDate}</Text>
       <Text style={styles.copy}>Tags: {tags}</Text>
+      <TouchableHighlight onPress={() => eatMeal(id, timestamp)}>
+        <Text style={styles.button}>I ate this today!</Text>
+      </TouchableHighlight>
     </View>
   );
+};
+
+Meal.propTypes = {
+  eatMeal: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  lastEaten: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  recipeSource: PropTypes.string,
+  tags: PropTypes.string
+  // vegetarian: PropTypes.bool
 };
 
 Meal.defaultProps = {
@@ -37,14 +79,6 @@ Meal.defaultProps = {
   recipeSource: '',
   tags: ''
   // vegetarian: false
-};
-
-Meal.propTypes = {
-  lastEaten: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  recipeSource: PropTypes.string,
-  tags: PropTypes.string
-  // vegetarian: PropTypes.bool
 };
 
 export default Meal;

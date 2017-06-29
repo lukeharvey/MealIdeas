@@ -38,7 +38,7 @@ const mealsById = (state = {}, action) => {
       return stateCopy;
     }
     case EAT_MEAL: {
-      const { id, lastEaten } = action.payload;
+      const { id, timestamp } = action.payload;
       return {
         // copy the state
         ...state,
@@ -47,7 +47,7 @@ const mealsById = (state = {}, action) => {
           // copy the existing meal properties
           ...state[id],
           // update the last eaten timestamp
-          lastEaten
+          lastEaten: timestamp
         }
       };
     }

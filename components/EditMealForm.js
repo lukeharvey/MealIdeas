@@ -9,7 +9,6 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
-import shortid from 'shortid';
 
 const styles = StyleSheet.create({
   button: {
@@ -38,24 +37,24 @@ const styles = StyleSheet.create({
   }
 });
 
-class AddMealForm extends React.Component {
+class EditMealForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      lastEaten: new Date().toISOString(),
-      name: '',
-      recipeSource: '',
-      tags: '',
-      vegetarian: false
+      lastEaten: props.lastEaten,
+      name: props.name,
+      recipeSource: props.recipeSource,
+      tags: props.tags
+      // vegetarian: props.vegetarian
     };
   }
 
   handleSubmit() {
     const { lastEaten, name, recipeSource, tags, vegetarian } = this.state;
-    const id = shortid.generate();
+    const { id } = this.props;
     const meal = {
       id,
       lastEaten,
@@ -65,7 +64,7 @@ class AddMealForm extends React.Component {
       vegetarian
     };
 
-    this.props.addMeal(meal);
+    this.props.updateMeal(id, meal);
     this.props.goBack();
   }
 
@@ -78,6 +77,7 @@ class AddMealForm extends React.Component {
             placeholder="e.g. Spaghetti Bolognese"
             onChangeText={name => this.setState({ name })}
             style={styles.input}
+            value={this.state.name}
           />
         </View>
         <View style={styles.group}>
@@ -86,6 +86,7 @@ class AddMealForm extends React.Component {
             placeholder="e.g. River Cottage Veg Everyday"
             onChangeText={recipeSource => this.setState({ recipeSource })}
             style={styles.input}
+            value={this.state.recipeSource}
           />
         </View>
         <View style={styles.group}>
@@ -94,6 +95,7 @@ class AddMealForm extends React.Component {
             placeholder="e.g. bacon, pasta"
             onChangeText={tags => this.setState({ tags })}
             style={styles.input}
+            value={this.state.tags}
           />
         </View>
         <View style={styles.group}>
@@ -108,16 +110,28 @@ class AddMealForm extends React.Component {
         <TouchableHighlight
           onPress={this.handleSubmit}
         >
-          <Text style={styles.button}>Submit</Text>
+          <Text style={styles.button}>Save</Text>
         </TouchableHighlight>
       </ScrollView>
     );
   }
 }
 
-AddMealForm.propTypes = {
-  addMeal: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired
+EditMealForm.propTypes = {
+  lastEaten: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  recipeSource: PropTypes.string,
+  tags: PropTypes.string,
+  goBack: PropTypes.func.isRequired,
+  updateMeal: PropTypes.func.isRequired
 };
 
-export default AddMealForm;
+EditMealForm.defaultProps = {
+  lastEaten: '',
+  recipeSource: '',
+  tags: ''
+  // vegetarian: false
+};
+
+export default EditMealForm;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -28,9 +28,18 @@ const MealScreen = (props) => {
   );
 };
 
-MealScreen.navigationOptions = ({ navigation }) => ({
-  title: `${navigation.state.params.name}`
-});
+MealScreen.navigationOptions = ({ navigation }) => {
+  const { id, name } = navigation.state.params;
+  return {
+    title: `${name}`,
+    headerRight: (
+      <Button
+        title="Edit"
+        onPress={() => navigation.navigate('EditMeal', { id })}
+      />
+    )
+  };
+};
 
 MealScreen.propTypes = {
   eatMeal: React.PropTypes.func.isRequired,

@@ -38,7 +38,7 @@ const MealItem = (props) => {
   const swipeoutBtns = [
     {
       backgroundColor: 'dodgerblue',
-      onPress: () => navigate('EditMeal', { id, name }),
+      onPress: () => navigate('EditMeal', { id }),
       text: 'Edit'
     },
     {

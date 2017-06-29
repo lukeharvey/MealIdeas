@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 });
 
 const Meal = (props) => {
-  const { eatMeal, id, lastEaten, name, recipeSource, tags } = props;
+  const { eatMeal, id, lastEaten, name, recipeSource, tags, vegetarian } = props;
   const timestamp = new Date().toISOString();
   const formatDate = (date) => {
     if (!date) {
@@ -55,8 +55,9 @@ const Meal = (props) => {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.lastEaten}>Last eaten: {formatDate(lastEaten)}</Text>
       </View>
-      <Text style={styles.copy}>Recipe source: {recipeSource}</Text>
-      <Text style={styles.copy}>Tags: {tags}</Text>
+      {recipeSource.length > 0 && <Text style={styles.copy}>Recipe source: {recipeSource}</Text>}
+      {tags.length > 0 && <Text style={styles.copy}>Tags: {tags}</Text>}
+      {vegetarian && <Text style={styles.copy}>Vegetarian</Text>}
       <TouchableHighlight onPress={() => eatMeal(id, timestamp)}>
         <Text style={styles.button}>I ate this today!</Text>
       </TouchableHighlight>
@@ -70,15 +71,15 @@ Meal.propTypes = {
   lastEaten: PropTypes.string,
   name: PropTypes.string.isRequired,
   recipeSource: PropTypes.string,
-  tags: PropTypes.string
-  // vegetarian: PropTypes.bool
+  tags: PropTypes.string,
+  vegetarian: PropTypes.bool
 };
 
 Meal.defaultProps = {
   lastEaten: '',
   recipeSource: '',
-  tags: ''
-  // vegetarian: false
+  tags: '',
+  vegetarian: false
 };
 
 export default Meal;

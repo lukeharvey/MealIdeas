@@ -4,6 +4,7 @@ import {
   DatePickerIOS,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   TouchableHighlight,
@@ -12,7 +13,7 @@ import {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'mediumseagreen',
+    backgroundColor: 'dodgerblue',
     color: 'white',
     fontSize: 16,
     height: 50,
@@ -27,13 +28,14 @@ const styles = StyleSheet.create({
     borderColor: '#CED0CE',
     borderStyle: 'solid',
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingVertical: 12
   },
   input: {
-    height: 40
+    paddingVertical: 12
   },
   label: {
-    fontSize: 16
+    fontSize: 16,
+    marginBottom: 6
   }
 });
 
@@ -47,8 +49,8 @@ class EditMealForm extends React.Component {
       lastEaten: props.lastEaten,
       name: props.name,
       recipeSource: props.recipeSource,
-      tags: props.tags
-      // vegetarian: props.vegetarian
+      tags: props.tags,
+      vegetarian: props.vegetarian
     };
   }
 
@@ -75,7 +77,7 @@ class EditMealForm extends React.Component {
           <Text style={styles.label}>Name:</Text>
           <TextInput
             placeholder="e.g. Spaghetti Bolognese"
-            onChangeText={name => this.setState({ name })}
+            onChangeText={value => this.setState({ name: value })}
             style={styles.input}
             value={this.state.name}
           />
@@ -84,7 +86,7 @@ class EditMealForm extends React.Component {
           <Text style={styles.label}>Recipe source:</Text>
           <TextInput
             placeholder="e.g. River Cottage Veg Everyday"
-            onChangeText={recipeSource => this.setState({ recipeSource })}
+            onChangeText={value => this.setState({ recipeSource: value })}
             style={styles.input}
             value={this.state.recipeSource}
           />
@@ -93,9 +95,16 @@ class EditMealForm extends React.Component {
           <Text style={styles.label}>Tags:</Text>
           <TextInput
             placeholder="e.g. bacon, pasta"
-            onChangeText={tags => this.setState({ tags })}
+            onChangeText={value => this.setState({ tags: value })}
             style={styles.input}
             value={this.state.tags}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Vegetarian:</Text>
+          <Switch
+            onValueChange={value => this.setState({ vegetarian: value })}
+            value={this.state.vegetarian}
           />
         </View>
         <View style={styles.group}>
@@ -123,6 +132,7 @@ EditMealForm.propTypes = {
   name: PropTypes.string.isRequired,
   recipeSource: PropTypes.string,
   tags: PropTypes.string,
+  vegetarian: PropTypes.bool,
   goBack: PropTypes.func.isRequired,
   updateMeal: PropTypes.func.isRequired
 };
@@ -130,8 +140,8 @@ EditMealForm.propTypes = {
 EditMealForm.defaultProps = {
   lastEaten: '',
   recipeSource: '',
-  tags: ''
-  // vegetarian: false
+  tags: '',
+  vegetarian: false
 };
 
 export default EditMealForm;

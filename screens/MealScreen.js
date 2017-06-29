@@ -34,8 +34,9 @@ MealScreen.navigationOptions = ({ navigation }) => {
     title: `${name}`,
     headerRight: (
       <Button
-        title="Edit"
+        color="dodgerblue"
         onPress={() => navigation.navigate('EditMeal', { id })}
+        title="Edit"
       />
     )
   };

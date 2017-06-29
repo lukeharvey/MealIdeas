@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 const styles = StyleSheet.create({
   copy: {
@@ -22,20 +23,33 @@ const styles = StyleSheet.create({
 });
 
 const MealItem = (props) => {
-  const { id, lastEaten, name, navigate } = props;
+  const { deleteMeal, id, lastEaten, name, navigate } = props;
   const formattedDate = lastEaten ? moment(lastEaten).startOf('day').fromNow() : 'Never';
 
-  function onPress() {
-    return navigate('Meal', { id, name });
-  }
+  const swipeoutBtns = [
+    {
+      backgroundColor: 'dodgerblue',
+      text: 'Edit'
+    },
+    {
+      backgroundColor: 'orangered',
+      onPress: () => deleteMeal(id),
+      text: 'Delete'
+    }
+  ];
 
   return (
-    <TouchableHighlight onPress={onPress}>
-      <View style={styles.item}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.copy}>Last eaten: {formattedDate}</Text>
-      </View>
-    </TouchableHighlight>
+    <Swipeout
+      autoClose
+      right={swipeoutBtns}
+    >
+      <TouchableHighlight onPress={() => navigate('Meal', { id, name })}>
+        <View style={styles.item}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.copy}>Last eaten: {formattedDate}</Text>
+        </View>
+      </TouchableHighlight>
+    </Swipeout>
   );
 };
 
@@ -44,6 +58,7 @@ MealItem.defaultProps = {
 };
 
 MealItem.propTypes = {
+  deleteMeal: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   lastEaten: PropTypes.string,
   name: PropTypes.string.isRequired,

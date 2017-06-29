@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -10,38 +10,44 @@ import { mealsFilteredByKeyword } from '../selectors/index';
 import MealList from '../components/MealList';
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: 'mediumseagreen',
+    color: 'white',
+    fontSize: 16,
+    height: 50,
+    lineHeight: 50,
+    textAlign: 'center'
+  },
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     flex: 1
   }
 });
 
-class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const HomeScreen = (props) => {
+  const { deleteMeal, meals, navigation } = props;
+  const { navigate } = navigation;
 
-  render() {
-    const { meals } = this.props;
-    const { navigate } = this.props.navigation;
-
-    return (
-      <View style={styles.container}>
-        <Button
-          onPress={() => false}
-          title="Add Meal"
-        />
-        <MealList meals={meals} navigate={navigate} />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <MealList
+        deleteMeal={deleteMeal}
+        meals={meals}
+        navigate={navigate}
+      />
+      <TouchableHighlight onPress={() => navigate('AddMeal')}>
+        <Text style={styles.button}>Add Meal</Text>
+      </TouchableHighlight>
+    </View>
+  );
+};
 
 HomeScreen.navigationOptions = {
   title: 'Meals'
 };
 
 HomeScreen.propTypes = {
+  deleteMeal: PropTypes.func.isRequired,
   meals: PropTypes.shape({
     byId: PropTypes.object,
     allIds: PropTypes.array

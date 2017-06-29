@@ -19,30 +19,32 @@ const styles = StyleSheet.create({
 });
 
 const Meal = (props) => {
-  const { name, lastEaten, vegetarian } = props;
+  const { lastEaten, name, recipeSource, tags } = props;
   const formattedDate = lastEaten ? moment(lastEaten).fromNow() : 'Never';
 
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{name}</Text>
+      <Text style={styles.copy}>Recipe source: {recipeSource}</Text>
       <Text style={styles.copy}>Last eaten: {formattedDate}</Text>
-      <Text style={styles.copy}>Vegetarian: {vegetarian.toString()}</Text>
+      <Text style={styles.copy}>Tags: {tags}</Text>
     </View>
   );
 };
 
 Meal.defaultProps = {
   lastEaten: '',
-  // recipeUrl: '',
-  // tags: [],
-  vegetarian: false
+  recipeSource: '',
+  tags: ''
+  // vegetarian: false
 };
 
 Meal.propTypes = {
   lastEaten: PropTypes.string,
   name: PropTypes.string.isRequired,
-  // recipeUrl: PropTypes.string,
-  vegetarian: PropTypes.bool
+  recipeSource: PropTypes.string,
+  tags: PropTypes.string
+  // vegetarian: PropTypes.bool
 };
 
 export default Meal;

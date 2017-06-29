@@ -22,7 +22,7 @@ const mealsById = (state = {}, action) => {
           id: meal.id,
           lastEaten: meal.lastEaten,
           name: meal.name,
-          recipeUrl: meal.recipeUrl,
+          recipeSource: meal.recipeSource,
           tags: meal.tags,
           vegetarian: meal.vegetarian
         }
@@ -62,7 +62,7 @@ const mealsById = (state = {}, action) => {
           // update the meal properties
           lastEaten: meal.lastEaten,
           name: meal.name,
-          recipeUrl: meal.recipeUrl,
+          recipeSource: meal.recipeSource,
           tags: meal.tags,
           vegetarian: meal.vegetarian
         }

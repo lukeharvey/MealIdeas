@@ -20,11 +20,14 @@ const mealsById = (state = {}, action) => {
         // add new meal to the state
         [meal.id]: {
           id: meal.id,
-          lastEaten: meal.lastEaten,
           name: meal.name,
           recipeSource: meal.recipeSource,
           tags: meal.tags,
-          vegetarian: meal.vegetarian
+          brunch: meal.brunch,
+          lunch: meal.lunch,
+          dinner: meal.dinner,
+          vegetarian: meal.vegetarian,
+          lastEaten: meal.lastEaten
         }
       };
     }
@@ -60,11 +63,14 @@ const mealsById = (state = {}, action) => {
           // copy the existing chosen meal properties
           ...state[id],
           // update the meal properties
-          lastEaten: meal.lastEaten,
           name: meal.name,
           recipeSource: meal.recipeSource,
           tags: meal.tags,
-          vegetarian: meal.vegetarian
+          brunch: meal.brunch,
+          lunch: meal.lunch,
+          dinner: meal.dinner,
+          vegetarian: meal.vegetarian,
+          lastEaten: meal.lastEaten
         }
       };
     }

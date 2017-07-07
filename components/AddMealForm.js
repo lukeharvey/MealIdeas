@@ -49,24 +49,39 @@ class AddMealForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      lastEaten: new Date().toISOString(),
       name: '',
       recipeSource: '',
       tags: '',
-      vegetarian: false
+      brunch: false,
+      lunch: false,
+      dinner: false,
+      vegetarian: false,
+      lastEaten: new Date().toISOString()
     };
   }
 
   handleSubmit() {
-    const { lastEaten, name, recipeSource, tags, vegetarian } = this.state;
     const id = shortid.generate();
-    const meal = {
-      id,
-      lastEaten,
+    const {
       name,
       recipeSource,
       tags,
-      vegetarian
+      brunch,
+      lunch,
+      dinner,
+      vegetarian,
+      lastEaten
+    } = this.state;
+    const meal = {
+      id,
+      name,
+      recipeSource,
+      tags,
+      brunch,
+      lunch,
+      dinner,
+      vegetarian,
+      lastEaten
     };
 
     this.props.addMeal(meal);
@@ -101,6 +116,27 @@ class AddMealForm extends React.Component {
             onChangeText={tags => this.setState({ tags })}
             style={styles.input}
             value={this.state.tags}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Brunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ brunch: value })}
+            value={this.state.brunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Lunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ lunch: value })}
+            value={this.state.lunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Dinner:</Text>
+          <Switch
+            onValueChange={value => this.setState({ dinner: value })}
+            value={this.state.dinner}
           />
         </View>
         <View style={styles.group}>

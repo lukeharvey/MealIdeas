@@ -1,26 +1,64 @@
 import { createSelector } from 'reselect';
 
-const filterSelector = state => state.filter;
-const mealsSelector = state => state.meals;
+const getMeals = state => state.meals;
+const getFilter = state => state.filter;
 
 export const filteredMeals = createSelector(
-  filterSelector,
-  mealsSelector,
-  (filter, meals) => {
-    const byId = meals.byId;
-    let allIds = meals.allIds;
-
-    if (filter === 'vegetarian') {
-      allIds = allIds
-                .map(id => byId[id])
-                .filter(meal => meal.vegetarian === true)
-                .map(meal => meal.id);
+  [getMeals, getFilter],
+  (meals, filter) => {
+    switch (filter) {
+      case 'vegetarian': {
+        const { byId, allIds } = meals;
+        const filteredAllIds = allIds
+          .slice()
+          .map(id => byId[id])
+          .filter(meal => meal.vegetarian === true)
+          .map(meal => meal.id);
+        return {
+          byId,
+          allIds: filteredAllIds
+        };
+      }
+      case 'brunch': {
+        const { byId, allIds } = meals;
+        const filteredAllIds = allIds
+          .slice()
+          .map(id => byId[id])
+          .filter(meal => meal.brunch === true)
+          .map(meal => meal.id);
+        return {
+          byId,
+          allIds: filteredAllIds
+        };
+      }
+      case 'lunch': {
+        const { byId, allIds } = meals;
+        const filteredAllIds = allIds
+          .slice()
+          .map(id => byId[id])
+          .filter(meal => meal.lunch === true)
+          .map(meal => meal.id);
+        return {
+          byId,
+          allIds: filteredAllIds
+        };
+      }
+      case 'dinner': {
+        const { byId, allIds } = meals;
+        const filteredAllIds = allIds
+          .slice()
+          .map(id => byId[id])
+          .filter(meal => meal.dinner === true)
+          .map(meal => meal.id);
+        return {
+          byId,
+          allIds: filteredAllIds
+        };
+      }
+      default: {
+        return meals;
+      }
     }
-
-    return {
-      byId,
-      allIds
-    };
   }
 );
 

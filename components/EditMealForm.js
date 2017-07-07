@@ -48,24 +48,39 @@ class EditMealForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      lastEaten: props.lastEaten,
       name: props.name,
       recipeSource: props.recipeSource,
       tags: props.tags,
-      vegetarian: props.vegetarian
+      brunch: props.brunch,
+      lunch: props.lunch,
+      dinner: props.dinner,
+      vegetarian: props.vegetarian,
+      lastEaten: props.lastEaten
     };
   }
 
   handleSubmit() {
-    const { lastEaten, name, recipeSource, tags, vegetarian } = this.state;
     const { id } = this.props;
-    const meal = {
-      id,
-      lastEaten,
+    const {
       name,
       recipeSource,
       tags,
-      vegetarian
+      brunch,
+      lunch,
+      dinner,
+      vegetarian,
+      lastEaten
+    } = this.state;
+    const meal = {
+      id,
+      name,
+      recipeSource,
+      tags,
+      brunch,
+      lunch,
+      dinner,
+      vegetarian,
+      lastEaten
     };
 
     this.props.updateMeal(id, meal);
@@ -103,6 +118,27 @@ class EditMealForm extends React.Component {
           />
         </View>
         <View style={styles.group}>
+          <Text style={styles.label}>Brunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ brunch: value })}
+            value={this.state.brunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Lunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ lunch: value })}
+            value={this.state.lunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Dinner:</Text>
+          <Switch
+            onValueChange={value => this.setState({ dinner: value })}
+            value={this.state.dinner}
+          />
+        </View>
+        <View style={styles.group}>
           <Text style={styles.label}>Vegetarian:</Text>
           <Switch
             onValueChange={value => this.setState({ vegetarian: value })}
@@ -129,21 +165,27 @@ class EditMealForm extends React.Component {
 }
 
 EditMealForm.propTypes = {
-  lastEaten: PropTypes.string,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   recipeSource: PropTypes.string,
   tags: PropTypes.string,
+  brunch: PropTypes.bool,
+  lunch: PropTypes.bool,
+  dinner: PropTypes.bool,
   vegetarian: PropTypes.bool,
+  lastEaten: PropTypes.string,
   goBack: PropTypes.func.isRequired,
   updateMeal: PropTypes.func.isRequired
 };
 
 EditMealForm.defaultProps = {
-  lastEaten: '',
   recipeSource: '',
   tags: '',
-  vegetarian: false
+  brunch: false,
+  lunch: false,
+  dinner: false,
+  vegetarian: false,
+  lastEaten: ''
 };
 
 export default EditMealForm;

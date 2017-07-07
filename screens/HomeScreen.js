@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -30,14 +31,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   tabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 16,
-    marginVertical: 8
+    marginHorizontal: 12,
+    marginVertical: 8,
+    flexGrow: 0
   },
   tab: {
     backgroundColor: 'whitesmoke',
     borderRadius: 40,
+    marginHorizontal: 4,
     paddingHorizontal: 16,
     paddingVertical: 12,
     overflow: 'hidden'
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
   tabSelected: {
     backgroundColor: 'lightblue',
     borderRadius: 40,
+    marginHorizontal: 4,
     paddingHorizontal: 16,
     paddingVertical: 12,
     overflow: 'hidden'
@@ -61,7 +63,11 @@ const HomeScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.tabs}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.tabs}
+      >
         <TouchableHighlight
           style={filter === '' ? styles.tabSelected : styles.tab}
           onPress={() => setFilter('')}
@@ -75,6 +81,12 @@ const HomeScreen = (props) => {
           <Text style={styles.tabText}>Vegetarian</Text>
         </TouchableHighlight>
         <TouchableHighlight
+          style={filter === 'brunch' ? styles.tabSelected : styles.tab}
+          onPress={() => setFilter('brunch')}
+        >
+          <Text style={styles.tabText}>Brunch</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
           style={filter === 'lunch' ? styles.tabSelected : styles.tab}
           onPress={() => setFilter('lunch')}
         >
@@ -86,11 +98,12 @@ const HomeScreen = (props) => {
         >
           <Text style={styles.tabText}>Dinner</Text>
         </TouchableHighlight>
-      </View>
+      </ScrollView>
       <MealList
         deleteMeal={deleteMeal}
         meals={meals}
         navigate={navigate}
+        style={styles.list}
       />
       <TouchableHighlight onPress={() => navigate('AddMeal')}>
         <Text style={styles.button}>Add meal</Text>

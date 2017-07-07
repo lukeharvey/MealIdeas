@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect';
 
-const keywordSelector = state => state.keyword;
+const filterSelector = state => state.filter;
 const mealsSelector = state => state.meals;
 
-export const mealsFilteredByKeyword = createSelector(
-  keywordSelector,
+export const filteredMeals = createSelector(
+  filterSelector,
   mealsSelector,
-  (keyword, meals) => {
+  (filter, meals) => {
     const byId = meals.byId;
     let allIds = meals.allIds;
 
-    if (keyword.length > 0) {
+    if (filter === 'vegetarian') {
       allIds = allIds
                 .map(id => byId[id])
-                .filter(meal => meal.name.toLowerCase().includes(keyword))
+                .filter(meal => meal.vegetarian === true)
                 .map(meal => meal.id);
     }
 
@@ -24,4 +24,4 @@ export const mealsFilteredByKeyword = createSelector(
   }
 );
 
-export default mealsFilteredByKeyword;
+export default filteredMeals;

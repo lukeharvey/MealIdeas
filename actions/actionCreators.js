@@ -5,7 +5,7 @@ import {
   UPDATE_MEAL,
   LOAD_SAMPLE_DATA,
   RESET_DATA,
-  SET_KEYWORD
+  SET_FILTER
 } from './actionConstants';
 
 // add meal
@@ -52,11 +52,11 @@ export const resetData = () => ({
   type: RESET_DATA
 });
 
-// set filter keyword
-export const setKeyword = keyword => ({
-  type: SET_KEYWORD,
+// set filter
+export const setFilter = filter => ({
+  type: SET_FILTER,
   payload: {
-    keyword
+    filter
   }
 });
 

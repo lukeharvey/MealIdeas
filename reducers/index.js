@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import meals from './meals';
-import keyword from './keyword';
+import filter from './filter';
 
 const rootReducer = combineReducers({
   meals,
-  keyword
+  filter
 });
 
 export default rootReducer;

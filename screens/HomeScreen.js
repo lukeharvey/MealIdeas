@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../actions/actionCreators';
-import { mealsFilteredByKeyword } from '../selectors/index';
+import { filteredMeals } from '../selectors/index';
 
 import MealList from '../components/MealList';
 
@@ -23,15 +28,39 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1
+  },
+  tabs: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 12
+  },
+  tabButton: {
+    fontWeight: '600',
+    paddingHorizontal: 16,
+    textAlign: 'center'
   }
 });
 
 const HomeScreen = (props) => {
-  const { deleteMeal, meals, navigation } = props;
+  const { deleteMeal, meals, navigation, setFilter } = props;
   const { navigate } = navigation;
 
   return (
     <View style={styles.container}>
+      <View style={styles.tabs}>
+        <TouchableHighlight style={styles.tab} onPress={() => setFilter('')}>
+          <Text style={styles.tabButton}>All</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.tab} onPress={() => setFilter('vegetarian')}>
+          <Text style={styles.tabButton}>Vegetarian</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.tab} onPress={() => setFilter('lunch')}>
+          <Text style={styles.tabButton}>Lunch</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.tab} onPress={() => setFilter('dinner')}>
+          <Text style={styles.tabButton}>Dinner</Text>
+        </TouchableHighlight>
+      </View>
       <MealList
         deleteMeal={deleteMeal}
         meals={meals}
@@ -55,7 +84,8 @@ HomeScreen.propTypes = {
     allIds: PropTypes.array
   }),
   // eslint-disable-next-line react/forbid-prop-types
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  setFilter: PropTypes.func.isRequired
 };
 
 HomeScreen.defaultProps = {
@@ -66,8 +96,7 @@ HomeScreen.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  meals: mealsFilteredByKeyword(state),
-  keyword: state.keyword
+  meals: filteredMeals(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

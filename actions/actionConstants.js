@@ -10,4 +10,4 @@ export const LOAD_SAMPLE_DATA = 'LOAD_SAMPLE_DATA';
 
 export const RESET_DATA = 'RESET_DATA';
 
-export const SET_KEYWORD = 'SET_KEYWORD';
+export const SET_FILTER = 'SET_FILTER';

@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../actions/actionCreators';
-import { filteredMeals } from '../selectors/index';
+import { getOrderedFilteredMeals } from '../selectors/index';
 
 import MealList from '../components/MealList';
 
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 const HomeScreen = (props) => {
   const { deleteMeal, filter, meals, navigation, setFilter } = props;
   const { navigate } = navigation;
+  const allMeals = meals.allIds.map(id => meals.byId[id]);
 
   return (
     <View style={styles.container}>
@@ -101,7 +102,7 @@ const HomeScreen = (props) => {
       </ScrollView>
       <MealList
         deleteMeal={deleteMeal}
-        meals={meals}
+        allMeals={allMeals}
         navigate={navigate}
         style={styles.list}
       />
@@ -137,7 +138,7 @@ HomeScreen.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  meals: filteredMeals(state),
+  meals: getOrderedFilteredMeals(state),
   filter: state.filter
 });
 

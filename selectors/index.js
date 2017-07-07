@@ -1,58 +1,49 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 
 const getMeals = state => state.meals;
 const getFilter = state => state.filter;
 
-export const filteredMeals = createSelector(
+export const getFilteredMeals = createSelector(
   [getMeals, getFilter],
   (meals, filter) => {
+    const { byId, allIds } = meals;
+    const allMeals = allIds.map(id => byId[id]);
     switch (filter) {
       case 'vegetarian': {
-        const { byId, allIds } = meals;
-        const filteredAllIds = allIds
-          .slice()
-          .map(id => byId[id])
+        const filteredIds = allMeals
           .filter(meal => meal.vegetarian === true)
           .map(meal => meal.id);
         return {
           byId,
-          allIds: filteredAllIds
+          allIds: filteredIds
         };
       }
       case 'brunch': {
-        const { byId, allIds } = meals;
-        const filteredAllIds = allIds
-          .slice()
-          .map(id => byId[id])
+        const filteredIds = allMeals
           .filter(meal => meal.brunch === true)
           .map(meal => meal.id);
         return {
           byId,
-          allIds: filteredAllIds
+          allIds: filteredIds
         };
       }
       case 'lunch': {
-        const { byId, allIds } = meals;
-        const filteredAllIds = allIds
-          .slice()
-          .map(id => byId[id])
+        const filteredIds = allMeals
           .filter(meal => meal.lunch === true)
           .map(meal => meal.id);
         return {
           byId,
-          allIds: filteredAllIds
+          allIds: filteredIds
         };
       }
       case 'dinner': {
-        const { byId, allIds } = meals;
-        const filteredAllIds = allIds
-          .slice()
-          .map(id => byId[id])
+        const filteredIds = allMeals
           .filter(meal => meal.dinner === true)
           .map(meal => meal.id);
         return {
           byId,
-          allIds: filteredAllIds
+          allIds: filteredIds
         };
       }
       default: {
@@ -62,4 +53,19 @@ export const filteredMeals = createSelector(
   }
 );
 
-export default filteredMeals;
+export const getOrderedFilteredMeals = createSelector(
+  getFilteredMeals,
+  (meals) => {
+    const { byId, allIds } = meals;
+    const allMeals = allIds.map(id => byId[id]);
+    const orderedIds = allMeals
+      .sort((a, b) => moment(a.lastEaten) - moment(b.lastEaten))
+      .map(meal => meal.id);
+    return {
+      byId,
+      allIds: orderedIds
+    };
+  }
+);
+
+export default getOrderedFilteredMeals;

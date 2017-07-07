@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { FlatList } from 'react-native';
 
 import MealItem from './MealItem';
 
 const MealList = (props) => {
-  const { deleteMeal, meals, navigate } = props;
-  const orderedMeals = meals.allIds
-        .map(id => meals.byId[id])
-        .sort((a, b) => moment(a.lastEaten) - moment(b.lastEaten));
+  const { deleteMeal, allMeals, navigate } = props;
 
   return (
     <FlatList
-      data={orderedMeals}
+      data={allMeals}
       keyExtractor={item => item.id}
       renderItem={({ item }) => (
         <MealItem
@@ -27,18 +23,12 @@ const MealList = (props) => {
 };
 
 MealList.defaultProps = {
-  meals: {
-    byId: {},
-    allIds: []
-  }
+  allMeals: []
 };
 
 MealList.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
-  meals: PropTypes.shape({
-    byId: PropTypes.object,
-    allIds: PropTypes.array
-  }),
+  allMeals: PropTypes.array,
   navigate: PropTypes.func.isRequired
 };
 

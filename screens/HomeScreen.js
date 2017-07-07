@@ -31,34 +31,60 @@ const styles = StyleSheet.create({
   },
   tabs: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingVertical: 12
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginVertical: 8
   },
-  tabButton: {
-    fontWeight: '600',
+  tab: {
+    backgroundColor: 'whitesmoke',
+    borderRadius: 40,
     paddingHorizontal: 16,
+    paddingVertical: 12,
+    overflow: 'hidden'
+  },
+  tabSelected: {
+    backgroundColor: 'lightblue',
+    borderRadius: 40,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    overflow: 'hidden'
+  },
+  tabText: {
+    fontWeight: '600',
     textAlign: 'center'
   }
 });
 
 const HomeScreen = (props) => {
-  const { deleteMeal, meals, navigation, setFilter } = props;
+  const { deleteMeal, filter, meals, navigation, setFilter } = props;
   const { navigate } = navigation;
 
   return (
     <View style={styles.container}>
       <View style={styles.tabs}>
-        <TouchableHighlight style={styles.tab} onPress={() => setFilter('')}>
-          <Text style={styles.tabButton}>All</Text>
+        <TouchableHighlight
+          style={filter === '' ? styles.tabSelected : styles.tab}
+          onPress={() => setFilter('')}
+        >
+          <Text style={styles.tabText}>All</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.tab} onPress={() => setFilter('vegetarian')}>
-          <Text style={styles.tabButton}>Vegetarian</Text>
+        <TouchableHighlight
+          style={filter === 'vegetarian' ? styles.tabSelected : styles.tab}
+          onPress={() => setFilter('vegetarian')}
+        >
+          <Text style={styles.tabText}>Vegetarian</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.tab} onPress={() => setFilter('lunch')}>
-          <Text style={styles.tabButton}>Lunch</Text>
+        <TouchableHighlight
+          style={filter === 'lunch' ? styles.tabSelected : styles.tab}
+          onPress={() => setFilter('lunch')}
+        >
+          <Text style={styles.tabText}>Lunch</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.tab} onPress={() => setFilter('dinner')}>
-          <Text style={styles.tabButton}>Dinner</Text>
+        <TouchableHighlight
+          style={filter === 'dinner' ? styles.tabSelected : styles.tab}
+          onPress={() => setFilter('dinner')}
+        >
+          <Text style={styles.tabText}>Dinner</Text>
         </TouchableHighlight>
       </View>
       <MealList
@@ -79,6 +105,7 @@ HomeScreen.navigationOptions = {
 
 HomeScreen.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
+  filter: PropTypes.string,
   meals: PropTypes.shape({
     byId: PropTypes.object,
     allIds: PropTypes.array
@@ -89,6 +116,7 @@ HomeScreen.propTypes = {
 };
 
 HomeScreen.defaultProps = {
+  filter: '',
   meals: {
     byId: {},
     allIds: []
@@ -96,7 +124,8 @@ HomeScreen.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  meals: filteredMeals(state)
+  meals: filteredMeals(state),
+  filter: state.filter
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

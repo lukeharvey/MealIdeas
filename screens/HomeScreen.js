@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -14,6 +13,7 @@ import * as actionCreators from '../actions/actionCreators';
 import { getOrderedFilteredMeals } from '../selectors/index';
 
 import MealList from '../components/MealList';
+import FilterTabs from '../components/FilterTabs';
 
 const styles = StyleSheet.create({
   button: {
@@ -29,31 +29,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1
-  },
-  tabs: {
-    marginHorizontal: 12,
-    marginVertical: 8,
-    flexGrow: 0
-  },
-  tab: {
-    backgroundColor: 'whitesmoke',
-    borderRadius: 40,
-    marginHorizontal: 4,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    overflow: 'hidden'
-  },
-  tabSelected: {
-    backgroundColor: 'lightblue',
-    borderRadius: 40,
-    marginHorizontal: 4,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    overflow: 'hidden'
-  },
-  tabText: {
-    fontWeight: '600',
-    textAlign: 'center'
   }
 });
 
@@ -64,42 +39,7 @@ const HomeScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.tabs}
-      >
-        <TouchableHighlight
-          style={filter === '' ? styles.tabSelected : styles.tab}
-          onPress={() => setFilter('')}
-        >
-          <Text style={styles.tabText}>All</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={filter === 'vegetarian' ? styles.tabSelected : styles.tab}
-          onPress={() => setFilter('vegetarian')}
-        >
-          <Text style={styles.tabText}>Vegetarian</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={filter === 'brunch' ? styles.tabSelected : styles.tab}
-          onPress={() => setFilter('brunch')}
-        >
-          <Text style={styles.tabText}>Brunch</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={filter === 'lunch' ? styles.tabSelected : styles.tab}
-          onPress={() => setFilter('lunch')}
-        >
-          <Text style={styles.tabText}>Lunch</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={filter === 'dinner' ? styles.tabSelected : styles.tab}
-          onPress={() => setFilter('dinner')}
-        >
-          <Text style={styles.tabText}>Dinner</Text>
-        </TouchableHighlight>
-      </ScrollView>
+      <FilterTabs filter={filter} setFilter={setFilter} />
       <MealList
         deleteMeal={deleteMeal}
         allMeals={allMeals}

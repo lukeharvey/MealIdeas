@@ -10,7 +10,7 @@ export const getFilteredMeals = createSelector(
     const { byId, allIds } = meals;
     const allMeals = allIds.map(id => byId[id]);
     switch (filter) {
-      case 'vegetarian': {
+      case 'Vegetarian': {
         const filteredIds = allMeals
           .filter(meal => meal.vegetarian === true)
           .map(meal => meal.id);
@@ -19,7 +19,16 @@ export const getFilteredMeals = createSelector(
           allIds: filteredIds
         };
       }
-      case 'brunch': {
+      case 'Meat': {
+        const filteredIds = allMeals
+          .filter(meal => meal.vegetarian === false)
+          .map(meal => meal.id);
+        return {
+          byId,
+          allIds: filteredIds
+        };
+      }
+      case 'Brunch': {
         const filteredIds = allMeals
           .filter(meal => meal.brunch === true)
           .map(meal => meal.id);
@@ -28,7 +37,7 @@ export const getFilteredMeals = createSelector(
           allIds: filteredIds
         };
       }
-      case 'lunch': {
+      case 'Lunch': {
         const filteredIds = allMeals
           .filter(meal => meal.lunch === true)
           .map(meal => meal.id);
@@ -37,7 +46,7 @@ export const getFilteredMeals = createSelector(
           allIds: filteredIds
         };
       }
-      case 'dinner': {
+      case 'Dinner': {
         const filteredIds = allMeals
           .filter(meal => meal.dinner === true)
           .map(meal => meal.id);

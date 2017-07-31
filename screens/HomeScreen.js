@@ -4,7 +4,7 @@ import {
   Button,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1
+  },
+  spacer: {
+    flex: 1
   }
 });
 
@@ -41,15 +44,19 @@ const HomeScreen = (props) => {
   return (
     <View style={styles.container}>
       <FilterTabs filter={filter} setFilter={setFilter} />
-      <MealList
-        deleteMeal={deleteMeal}
-        allMeals={allMeals}
-        navigate={navigate}
-        style={styles.list}
-      />
-      <TouchableHighlight onPress={() => navigate('AddMeal')}>
+      {allMeals.length > 0 ? (
+        <MealList
+          deleteMeal={deleteMeal}
+          allMeals={allMeals}
+          navigate={navigate}
+          style={styles.list}
+        />
+      ) : (
+        <View style={styles.spacer} />
+      )}
+      <TouchableOpacity onPress={() => navigate('AddMeal')}>
         <Text style={styles.button}>Add meal</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 };

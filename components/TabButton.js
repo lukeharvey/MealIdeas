@@ -31,12 +31,11 @@ const styles = StyleSheet.create({
 
 const TabButton = (props) => {
   const { filter, setFilter, text } = props;
-  const filterText = text === 'All' ? '' : text;
 
   return (
     <TouchableHighlight
       style={filter === text ? styles.tabSelected : styles.tab}
-      onPress={() => setFilter(filterText)}
+      onPress={() => setFilter(text)}
     >
       <Text style={styles.tabText}>{text}</Text>
     </TouchableHighlight>
@@ -44,8 +43,8 @@ const TabButton = (props) => {
 };
 
 TabButton.propTypes = {
-  filter: PropTypes.string,
   setFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string,
   text: PropTypes.string
 };
 

@@ -7,7 +7,7 @@ import {
   Switch,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   View
 } from 'react-native';
 import shortid from 'shortid';
@@ -50,13 +50,16 @@ class AddMealForm extends React.Component {
 
     this.state = {
       name: '',
-      recipeSource: '',
-      tags: '',
-      brunch: false,
-      lunch: false,
-      dinner: false,
-      vegetarian: false,
-      lastEaten: new Date().toISOString()
+      lastEaten: new Date().toISOString(),
+      recipeAuthor: '',
+      recipeBook: '',
+      recipePage: '',
+      recipeUrl: '',
+      categoryBrunch: false,
+      categoryLunch: false,
+      categoryDinner: false,
+      categoryVegetarian: false,
+      tags: ''
     };
   }
 
@@ -64,24 +67,30 @@ class AddMealForm extends React.Component {
     const id = shortid.generate();
     const {
       name,
-      recipeSource,
-      tags,
-      brunch,
-      lunch,
-      dinner,
-      vegetarian,
-      lastEaten
+      lastEaten,
+      recipeAuthor,
+      recipeBook,
+      recipePage,
+      recipeUrl,
+      categoryBrunch,
+      categoryLunch,
+      categoryDinner,
+      categoryVegetarian,
+      tags
     } = this.state;
     const meal = {
       id,
       name,
-      recipeSource,
-      tags,
-      brunch,
-      lunch,
-      dinner,
-      vegetarian,
-      lastEaten
+      lastEaten,
+      recipeAuthor,
+      recipeBook,
+      recipePage,
+      recipeUrl,
+      categoryBrunch,
+      categoryLunch,
+      categoryDinner,
+      categoryVegetarian,
+      tags
     };
 
     this.props.addMeal(meal);
@@ -101,12 +110,67 @@ class AddMealForm extends React.Component {
           />
         </View>
         <View style={styles.group}>
-          <Text style={styles.label}>Recipe source:</Text>
+          <Text style={styles.label}>Recipe author:</Text>
+          <TextInput
+            placeholder="e.g. Jamie Oliver"
+            onChangeText={recipeAuthor => this.setState({ recipeAuthor })}
+            style={styles.input}
+            value={this.state.recipeAuthor}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe book:</Text>
           <TextInput
             placeholder="e.g. River Cottage Veg Everyday"
-            onChangeText={recipeSource => this.setState({ recipeSource })}
+            onChangeText={recipeBook => this.setState({ recipeBook })}
             style={styles.input}
-            value={this.state.recipeSource}
+            value={this.state.recipeBook}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe page:</Text>
+          <TextInput
+            placeholder="e.g. 10"
+            onChangeText={recipePage => this.setState({ recipePage })}
+            style={styles.input}
+            value={this.state.recipePage}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe URL:</Text>
+          <TextInput
+            placeholder="e.g. https://www.rivercottage.net/recipes/pinto-bean-chilli"
+            onChangeText={recipeUrl => this.setState({ recipeUrl })}
+            style={styles.input}
+            value={this.state.recipeUrl}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Brunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryBrunch: value })}
+            value={this.state.categoryBrunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Lunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryLunch: value })}
+            value={this.state.categoryLunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Dinner:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryDinner: value })}
+            value={this.state.categoryDinner}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Vegetarian:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryVegetarian: value })}
+            value={this.state.categoryVegetarian}
           />
         </View>
         <View style={styles.group}>
@@ -119,34 +183,6 @@ class AddMealForm extends React.Component {
           />
         </View>
         <View style={styles.group}>
-          <Text style={styles.label}>Brunch:</Text>
-          <Switch
-            onValueChange={value => this.setState({ brunch: value })}
-            value={this.state.brunch}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Lunch:</Text>
-          <Switch
-            onValueChange={value => this.setState({ lunch: value })}
-            value={this.state.lunch}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Dinner:</Text>
-          <Switch
-            onValueChange={value => this.setState({ dinner: value })}
-            value={this.state.dinner}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Vegetarian:</Text>
-          <Switch
-            onValueChange={value => this.setState({ vegetarian: value })}
-            value={this.state.vegetarian}
-          />
-        </View>
-        <View style={styles.group}>
           <Text style={styles.label}>Date last eaten:</Text>
           <DatePickerIOS
             date={new Date(this.state.lastEaten)}
@@ -155,11 +191,11 @@ class AddMealForm extends React.Component {
             onDateChange={date => this.setState({ lastEaten: date.toISOString() })}
           />
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={this.handleSubmit}
         >
           <Text style={styles.button}>Add meal</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </ScrollView>
     );
   }

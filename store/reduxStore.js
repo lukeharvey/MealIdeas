@@ -8,4 +8,6 @@ const reduxStore = compose(autoRehydrate())(createStore)(rootReducer);
 
 persistStore(reduxStore, { storage: AsyncStorage });
 
+// persistStore(reduxStore, { storage: AsyncStorage }).purge();
+
 export default reduxStore;

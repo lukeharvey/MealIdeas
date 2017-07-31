@@ -12,7 +12,7 @@ export const getFilteredMeals = createSelector(
     switch (filter) {
       case 'Vegetarian': {
         const filteredIds = allMeals
-          .filter(meal => meal.vegetarian === true)
+          .filter(meal => meal.categoryVegetarian === true)
           .map(meal => meal.id);
         return {
           byId,
@@ -21,7 +21,7 @@ export const getFilteredMeals = createSelector(
       }
       case 'Meat': {
         const filteredIds = allMeals
-          .filter(meal => meal.vegetarian === false)
+          .filter(meal => meal.categoryVegetarian === false)
           .map(meal => meal.id);
         return {
           byId,
@@ -30,7 +30,7 @@ export const getFilteredMeals = createSelector(
       }
       case 'Brunch': {
         const filteredIds = allMeals
-          .filter(meal => meal.brunch === true)
+          .filter(meal => meal.categoryBrunch === true)
           .map(meal => meal.id);
         return {
           byId,
@@ -39,7 +39,7 @@ export const getFilteredMeals = createSelector(
       }
       case 'Lunch': {
         const filteredIds = allMeals
-          .filter(meal => meal.lunch === true)
+          .filter(meal => meal.categoryLunch === true)
           .map(meal => meal.id);
         return {
           byId,
@@ -48,12 +48,15 @@ export const getFilteredMeals = createSelector(
       }
       case 'Dinner': {
         const filteredIds = allMeals
-          .filter(meal => meal.dinner === true)
+          .filter(meal => meal.categoryDinner === true)
           .map(meal => meal.id);
         return {
           byId,
           allIds: filteredIds
         };
+      }
+      case 'All': {
+        return meals;
       }
       default: {
         return meals;
@@ -68,7 +71,12 @@ export const getOrderedFilteredMeals = createSelector(
     const { byId, allIds } = meals;
     const allMeals = allIds.map(id => byId[id]);
     const orderedIds = allMeals
-      .sort((a, b) => moment(a.lastEaten) - moment(b.lastEaten))
+      .sort((a, b) => {
+        if (!a || !b) {
+          return 0;
+        }
+        return moment(a.lastEaten) - moment(b.lastEaten);
+      })
       .map(meal => meal.id);
     return {
       byId,

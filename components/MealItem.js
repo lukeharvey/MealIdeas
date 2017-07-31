@@ -69,10 +69,10 @@ MealItem.defaultProps = {
 
 MealItem.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  lastEaten: PropTypes.string,
   name: PropTypes.string.isRequired,
-  navigate: PropTypes.func.isRequired
+  lastEaten: PropTypes.string
 };
 
 export default MealItem;

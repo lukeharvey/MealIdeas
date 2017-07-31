@@ -23,13 +23,16 @@ const mealsById = (state = {}, action) => {
         [meal.id]: {
           id: meal.id,
           name: meal.name,
-          recipeSource: meal.recipeSource,
-          tags: meal.tags,
-          brunch: meal.brunch,
-          lunch: meal.lunch,
-          dinner: meal.dinner,
-          vegetarian: meal.vegetarian,
-          lastEaten: meal.lastEaten
+          lastEaten: meal.lastEaten,
+          recipeAuthor: meal.recipeAuthor,
+          recipeBook: meal.recipeBook,
+          recipePage: meal.recipePage,
+          recipeUrl: meal.recipeUrl,
+          categoryBrunch: meal.categoryBrunch,
+          categoryLunch: meal.categoryLunch,
+          categoryDinner: meal.categoryDinner,
+          categoryVegetarian: meal.categoryVegetarian,
+          tags: meal.tags
         }
       };
     }
@@ -66,13 +69,16 @@ const mealsById = (state = {}, action) => {
           ...state[id],
           // update the meal properties
           name: meal.name,
-          recipeSource: meal.recipeSource,
-          tags: meal.tags,
-          brunch: meal.brunch,
-          lunch: meal.lunch,
-          dinner: meal.dinner,
-          vegetarian: meal.vegetarian,
-          lastEaten: meal.lastEaten
+          lastEaten: meal.lastEaten,
+          recipeAuthor: meal.recipeAuthor,
+          recipeBook: meal.recipeBook,
+          recipePage: meal.recipePage,
+          recipeUrl: meal.recipeUrl,
+          categoryBrunch: meal.categoryBrunch,
+          categoryLunch: meal.categoryLunch,
+          categoryDinner: meal.categoryDinner,
+          categoryVegetarian: meal.categoryVegetarian,
+          tags: meal.tags
         }
       };
     }

@@ -7,7 +7,7 @@ import {
   Switch,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -49,13 +49,16 @@ class EditMealForm extends React.Component {
 
     this.state = {
       name: props.name,
-      recipeSource: props.recipeSource,
-      tags: props.tags,
-      brunch: props.brunch,
-      lunch: props.lunch,
-      dinner: props.dinner,
-      vegetarian: props.vegetarian,
-      lastEaten: props.lastEaten
+      lastEaten: props.lastEaten,
+      recipeAuthor: props.recipeAuthor,
+      recipeBook: props.recipeBook,
+      recipePage: props.recipePage,
+      recipeUrl: props.recipeUrl,
+      categoryBrunch: props.categoryBrunch,
+      categoryLunch: props.categoryLunch,
+      categoryDinner: props.categoryDinner,
+      categoryVegetarian: props.categoryVegetarian,
+      tags: props.tags
     };
   }
 
@@ -63,24 +66,30 @@ class EditMealForm extends React.Component {
     const { id } = this.props;
     const {
       name,
-      recipeSource,
-      tags,
-      brunch,
-      lunch,
-      dinner,
-      vegetarian,
-      lastEaten
+      lastEaten,
+      recipeAuthor,
+      recipeBook,
+      recipePage,
+      recipeUrl,
+      categoryBrunch,
+      categoryLunch,
+      categoryDinner,
+      categoryVegetarian,
+      tags
     } = this.state;
     const meal = {
       id,
       name,
-      recipeSource,
-      tags,
-      brunch,
-      lunch,
-      dinner,
-      vegetarian,
-      lastEaten
+      lastEaten,
+      recipeAuthor,
+      recipeBook,
+      recipePage,
+      recipeUrl,
+      categoryBrunch,
+      categoryLunch,
+      categoryDinner,
+      categoryVegetarian,
+      tags
     };
 
     this.props.updateMeal(id, meal);
@@ -100,49 +109,76 @@ class EditMealForm extends React.Component {
           />
         </View>
         <View style={styles.group}>
-          <Text style={styles.label}>Recipe source:</Text>
+          <Text style={styles.label}>Recipe author:</Text>
+          <TextInput
+            placeholder="e.g. Jamie Oliver"
+            onChangeText={recipeAuthor => this.setState({ recipeAuthor })}
+            style={styles.input}
+            value={this.state.recipeAuthor}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe book:</Text>
           <TextInput
             placeholder="e.g. River Cottage Veg Everyday"
-            onChangeText={value => this.setState({ recipeSource: value })}
+            onChangeText={recipeBook => this.setState({ recipeBook })}
             style={styles.input}
-            value={this.state.recipeSource}
+            value={this.state.recipeBook}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe page:</Text>
+          <TextInput
+            placeholder="e.g. 10"
+            onChangeText={recipePage => this.setState({ recipePage })}
+            style={styles.input}
+            value={this.state.recipePage}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Recipe URL:</Text>
+          <TextInput
+            placeholder="e.g. https://www.rivercottage.net/recipes/pinto-bean-chilli"
+            onChangeText={recipeUrl => this.setState({ recipeUrl })}
+            style={styles.input}
+            value={this.state.recipeUrl}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Brunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryBrunch: value })}
+            value={this.state.categoryBrunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Lunch:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryLunch: value })}
+            value={this.state.categoryLunch}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Dinner:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryDinner: value })}
+            value={this.state.categoryDinner}
+          />
+        </View>
+        <View style={styles.group}>
+          <Text style={styles.label}>Vegetarian:</Text>
+          <Switch
+            onValueChange={value => this.setState({ categoryVegetarian: value })}
+            value={this.state.categoryVegetarian}
           />
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Tags:</Text>
           <TextInput
             placeholder="e.g. bacon, pasta"
-            onChangeText={value => this.setState({ tags: value })}
+            onChangeText={tags => this.setState({ tags })}
             style={styles.input}
             value={this.state.tags}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Brunch:</Text>
-          <Switch
-            onValueChange={value => this.setState({ brunch: value })}
-            value={this.state.brunch}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Lunch:</Text>
-          <Switch
-            onValueChange={value => this.setState({ lunch: value })}
-            value={this.state.lunch}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Dinner:</Text>
-          <Switch
-            onValueChange={value => this.setState({ dinner: value })}
-            value={this.state.dinner}
-          />
-        </View>
-        <View style={styles.group}>
-          <Text style={styles.label}>Vegetarian:</Text>
-          <Switch
-            onValueChange={value => this.setState({ vegetarian: value })}
-            value={this.state.vegetarian}
           />
         </View>
         <View style={styles.group}>
@@ -154,38 +190,44 @@ class EditMealForm extends React.Component {
             onDateChange={date => this.setState({ lastEaten: date.toISOString() })}
           />
         </View>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={this.handleSubmit}
         >
           <Text style={styles.button}>Save meal</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
 }
 
 EditMealForm.propTypes = {
+  goBack: PropTypes.func.isRequired,
+  updateMeal: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  recipeSource: PropTypes.string,
-  tags: PropTypes.string,
-  brunch: PropTypes.bool,
-  lunch: PropTypes.bool,
-  dinner: PropTypes.bool,
-  vegetarian: PropTypes.bool,
   lastEaten: PropTypes.string,
-  goBack: PropTypes.func.isRequired,
-  updateMeal: PropTypes.func.isRequired
+  recipeAuthor: PropTypes.string,
+  recipeBook: PropTypes.string,
+  recipePage: PropTypes.string,
+  recipeUrl: PropTypes.string,
+  categoryBrunch: PropTypes.bool,
+  categoryLunch: PropTypes.bool,
+  categoryDinner: PropTypes.bool,
+  categoryVegetarian: PropTypes.bool,
+  tags: PropTypes.string
 };
 
 EditMealForm.defaultProps = {
-  recipeSource: '',
-  tags: '',
-  brunch: false,
-  lunch: false,
-  dinner: false,
-  vegetarian: false,
-  lastEaten: ''
+  lastEaten: '',
+  recipeAuthor: '',
+  recipeBook: '',
+  recipePage: '',
+  recipeUrl: '',
+  categoryBrunch: false,
+  categoryLunch: false,
+  categoryDinner: false,
+  categoryVegetarian: false,
+  tags: ''
 };
 
 export default EditMealForm;

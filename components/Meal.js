@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
@@ -38,16 +38,19 @@ const styles = StyleSheet.create({
 
 const Meal = (props) => {
   const {
+    eatMeal,
     id,
     name,
-    recipeSource,
-    tags,
-    brunch,
-    lunch,
-    dinner,
     lastEaten,
-    vegetarian,
-    eatMeal
+    recipeAuthor,
+    recipeBook,
+    recipePage,
+    recipeUrl,
+    categoryBrunch,
+    categoryLunch,
+    categoryDinner,
+    categoryVegetarian,
+    tags
   } = props;
   const timestamp = new Date().toISOString();
   const formatDate = (date) => {
@@ -66,40 +69,49 @@ const Meal = (props) => {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.lastEaten}>Last eaten: {formatDate(lastEaten)}</Text>
       </View>
-      {recipeSource.length > 0 && <Text style={styles.copy}>Recipe source: {recipeSource}</Text>}
+      {recipeAuthor.length > 0 && <Text style={styles.copy}>Author: {recipeAuthor}</Text>}
+      {recipeBook.length > 0 && <Text style={styles.copy}>Book: {recipeBook}</Text>}
+      {recipePage.length > 0 && <Text style={styles.copy}>Page: {recipePage}</Text>}
+      {recipeUrl.length > 0 && <Text style={styles.copy}>URL: {recipeUrl}</Text>}
       {tags.length > 0 && <Text style={styles.copy}>Tags: {tags}</Text>}
-      <Text style={styles.copy}>Brunch: {brunch ? 'Yes' : 'No'}</Text>
-      <Text style={styles.copy}>Lunch: {lunch ? 'Yes' : 'No'}</Text>
-      <Text style={styles.copy}>Dinner: {dinner ? 'Yes' : 'No'}</Text>
-      <Text style={styles.copy}>Vegetarian: {vegetarian ? 'Yes' : 'No'}</Text>
-      <TouchableHighlight onPress={() => eatMeal(id, timestamp)}>
+      <Text style={styles.copy}>Brunch: {categoryBrunch ? 'Yes' : 'No'}</Text>
+      <Text style={styles.copy}>Lunch: {categoryLunch ? 'Yes' : 'No'}</Text>
+      <Text style={styles.copy}>Dinner: {categoryDinner ? 'Yes' : 'No'}</Text>
+      <Text style={styles.copy}>Vegetarian: {categoryVegetarian ? 'Yes' : 'No'}</Text>
+      <TouchableOpacity onPress={() => eatMeal(id, timestamp)}>
         <Text style={styles.button}>I ate this today!</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 };
 
 Meal.propTypes = {
+  eatMeal: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  recipeSource: PropTypes.string,
-  tags: PropTypes.string,
-  brunch: PropTypes.bool,
-  lunch: PropTypes.bool,
-  dinner: PropTypes.bool,
-  vegetarian: PropTypes.bool,
   lastEaten: PropTypes.string,
-  eatMeal: PropTypes.func.isRequired
+  recipeAuthor: PropTypes.string,
+  recipeBook: PropTypes.string,
+  recipePage: PropTypes.string,
+  recipeUrl: PropTypes.string,
+  categoryBrunch: PropTypes.bool,
+  categoryLunch: PropTypes.bool,
+  categoryDinner: PropTypes.bool,
+  categoryVegetarian: PropTypes.bool,
+  tags: PropTypes.string
 };
 
 Meal.defaultProps = {
-  recipeSource: '',
-  tags: '',
-  brunch: false,
-  lunch: false,
-  dinner: false,
-  vegetarian: false,
-  lastEaten: ''
+  lastEaten: '',
+  recipeAuthor: '',
+  recipeBook: '',
+  recipePage: '',
+  recipeUrl: '',
+  categoryBrunch: false,
+  categoryLunch: false,
+  categoryDinner: false,
+  categoryVegetarian: false,
+  tags: ''
 };
 
 export default Meal;

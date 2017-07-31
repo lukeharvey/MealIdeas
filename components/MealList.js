@@ -28,8 +28,8 @@ MealList.defaultProps = {
 
 MealList.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
-  allMeals: PropTypes.array,
-  navigate: PropTypes.func.isRequired
+  navigate: PropTypes.func.isRequired,
+  allMeals: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default MealList;

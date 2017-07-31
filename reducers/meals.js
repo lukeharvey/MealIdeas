@@ -4,9 +4,11 @@ import {
   DELETE_MEAL,
   EAT_MEAL,
   UPDATE_MEAL,
-  LOAD_SAMPLE_DATA,
+  IMPORT_DATA,
+  EXPORT_DATA,
   RESET_DATA
 } from '../actions/actionConstants';
+
 import sampleData from '../sample-data';
 
 const mealsById = (state = {}, action) => {
@@ -74,8 +76,12 @@ const mealsById = (state = {}, action) => {
         }
       };
     }
-    case LOAD_SAMPLE_DATA: {
+    case IMPORT_DATA: {
       return sampleData.byId;
+    }
+    case EXPORT_DATA: {
+      console.log(state);
+      return state;
     }
     case RESET_DATA: {
       return {};
@@ -96,8 +102,12 @@ const mealsAllIds = (state = [], action) => {
       const { id } = action.payload;
       return state.filter(item => item !== id);
     }
-    case LOAD_SAMPLE_DATA: {
+    case IMPORT_DATA: {
       return sampleData.allIds;
+    }
+    case EXPORT_DATA: {
+      console.log(state);
+      return state;
     }
     case RESET_DATA: {
       return [];

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -53,8 +54,17 @@ const HomeScreen = (props) => {
   );
 };
 
-HomeScreen.navigationOptions = {
-  title: 'Meals'
+HomeScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title: 'Meals',
+    headerRight: (
+      <Button
+        color="black"
+        onPress={() => navigation.navigate('Admin')}
+        title="Admin"
+      />
+    )
+  };
 };
 
 HomeScreen.propTypes = {

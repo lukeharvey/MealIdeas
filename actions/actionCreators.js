@@ -3,7 +3,8 @@ import {
   DELETE_MEAL,
   EAT_MEAL,
   UPDATE_MEAL,
-  LOAD_SAMPLE_DATA,
+  IMPORT_DATA,
+  EXPORT_DATA,
   RESET_DATA,
   SET_FILTER
 } from './actionConstants';
@@ -42,9 +43,14 @@ export const eatMeal = (id, timestamp) => ({
   }
 });
 
-// load sample data
-export const loadSampleData = () => ({
-  type: LOAD_SAMPLE_DATA
+// import data from file
+export const importData = () => ({
+  type: IMPORT_DATA
+});
+
+// export data to file
+export const exportData = () => ({
+  type: EXPORT_DATA
 });
 
 // delete all data

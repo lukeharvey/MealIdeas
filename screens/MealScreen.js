@@ -43,7 +43,7 @@ MealScreen.navigationOptions = ({ navigation }) => {
 };
 
 MealScreen.propTypes = {
-  eatMeal: React.PropTypes.func.isRequired,
+  eatMeal: PropTypes.func.isRequired,
   meals: PropTypes.shape({
     byId: PropTypes.object,
     allIds: PropTypes.array

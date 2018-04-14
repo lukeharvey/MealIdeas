@@ -37,7 +37,13 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = (props) => {
-  const { deleteMeal, filter, meals, navigation, setFilter } = props;
+  const {
+    deleteMeal,
+    filter,
+    meals,
+    navigation,
+    setFilter
+  } = props;
   const { navigate } = navigation;
   const allMeals = meals.allIds.map(id => meals.byId[id]);
 

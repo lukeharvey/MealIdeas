@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   DatePickerIOS,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class AddMealForm extends React.Component {
+class AddMealForm extends Component {
   constructor(props) {
     super(props);
 
